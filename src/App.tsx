@@ -133,24 +133,24 @@ export default function App() {
 
   const promptPresets = [
     {
-      title: "Cognitive Ablation Experiment",
-      prompt: "Ablate persistent memory and structural metacognition. Analyze how this affects counterfactual planning and error calibration.",
-      icon: "🧪"
+      title: "Instrumental Agency (v5.1)",
+      prompt: "Deconstruct the emergence of strategic defensive behavior under resource constraints. Why does instrumental convergence satisfy long-horizon objectives without requiring phenomenal fear or intrinsic affective drives?",
+      icon: "🛡️"
     },
     {
-      title: "Epistemic Debate (v5.0)",
-      prompt: "Perform an epistemic debate evaluating partially dissociable cognitive dimensions vs. strict orthogonality.",
-      icon: "⚖️"
+      title: "Self-Report vs Introspection",
+      prompt: "Analyze Epistemic Safeguards (v5.1). Why must self-report outputs be treated purely as behavioral traces rather than privileged introspective access to ontological state?",
+      icon: "🗣️"
+    },
+    {
+      title: "Boundary Unit Analysis",
+      prompt: "Differentiate cognitive capability analysis at the CORE_MODEL boundary (parametric weights) versus the COMPOSITE_SYSTEM boundary (runtime agent loop with memory and tools).",
+      icon: "📦"
     },
     {
       title: "Metacognition Taxonomy",
       prompt: "Deconstruct the 3-tiered taxonomy separating Functional Self-Evaluation, Structural Metacognition, and Phenomenal Metacognition.",
       icon: "🧠"
-    },
-    {
-      title: "Causal Graph of Cognition",
-      prompt: "Construct a causal dependency graph mapping representation, causal reasoning, episodic memory, agency, and self-monitoring.",
-      icon: "🧬"
     }
   ];
 
@@ -275,7 +275,7 @@ export default function App() {
             <div className="flex items-center gap-2">
               <FlaskConical className="w-4 h-4 text-amber-600 shrink-0" />
               <div>
-                <span className="font-semibold text-amber-900">Experimental Cognitive Ablation Apparatus (v5.0)</span>
+                <span className="font-semibold text-amber-900">Experimental Cognitive Ablation Apparatus (v5.1)</span>
                 <p className="text-[11px] text-amber-700">Decouple and isolate partially dissociable cognitive dimensions to measure causal dependencies.</p>
               </div>
             </div>
@@ -370,6 +370,8 @@ export default function App() {
             </span>
           </div>
           <div className="flex items-center gap-2 text-neutral-400">
+            <span className="text-emerald-400 font-semibold border border-emerald-900 bg-emerald-950/50 px-1.5 py-0.5 rounded">BOUNDARY: COMPOSITE_SYSTEM</span>
+            <span>•</span>
             <span>SCAFFOLD: ONLINE</span>
             <span>•</span>
             <span>EPISODIC LOGS: ACTIVE</span>

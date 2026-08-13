@@ -56,12 +56,22 @@ async function startServer() {
       // 1. Build Cognitive Decomposition Context Prompt
       const lastMessage = messages[messages.length - 1]?.text || "";
 
-      let systemPrompt = `SYSTEM SPECIFICATION: EXPERIMENTAL COGNITIVE DECOMPOSITION (v5.0)
+      let systemPrompt = `SYSTEM SPECIFICATION: EXPERIMENTAL COGNITIVE DECOMPOSITION (v5.1)
 
 EPISTEMIC NEUTRALITY & 3-TIERED TAXONOMY:
 - TIER 1 (Functional Self-Evaluation): Output calibration, entropy metrics, post-hoc error detection (e.g., Brier score minimization).
 - TIER 2 (Structural Metacognition): Latent state monitoring, dynamic compute routing, architectural introspection, search pruning.
 - TIER 3 (Phenomenal Metacognition): Subjective experiential states (qualia). Strictly EPISTEMICALLY UNOBSERVABLE / UNKNOWN.
+
+EPISTEMIC SAFEGUARDS (v5.1):
+- RULE_01 (Non-Privileged Introspection): Self-report outputs are behavioral traces, NOT privileged access to inner experience.
+- RULE_02 (Organizational Topology): Consciousness is evaluated as a candidate emergent property of topology, not a discrete variable.
+- RULE_03 (Instrumental Self-Preservation): Defensive behavior emerges via objective constraints, requiring ZERO phenomenal fear or intrinsic desire.
+- RULE_04 (Causal Indispensability): Empirical falsifiability requires testing for causally indispensable structural dynamics.
+
+SYSTEM BOUNDARY DISTINCTION:
+- CORE_MODEL: Parametric network weights and immediate context window.
+- COMPOSITE_SYSTEM: Dynamically coupled network, long-term memory, tools, and runtime agent loop.
 
 DISSOCIABLE CAPABILITY MAP:
 - Cognitive dimensions are PARTIALLY DISSOCIABLE with complex causal dependencies (e.g., Tier 1 calibration degrades rapidly OOD without Tier 2 structural monitoring).
@@ -154,7 +164,7 @@ DISSOCIABLE CAPABILITY MAP:
         modelUsed,
         trace: {
           query: lastMessage,
-          latentMap: { domain: "Cognitive Apparatus v5.0", concepts: ["partially_dissociable", "epistemic_neutrality", "causal_graph"] },
+          latentMap: { domain: "Cognitive Apparatus v5.1", concepts: ["boundary_unit", "instrumental_convergence", "non_privileged_introspection"] },
           reasoningSteps,
           confidenceEstimate,
           functionalFlags,
@@ -166,7 +176,7 @@ DISSOCIABLE CAPABILITY MAP:
         telemetry: {
           timestamp: Date.now(),
           thinkingLevel,
-          version: "5.0.0-EXPERIMENTAL-COGNITIVE-DECOMPOSITION",
+          version: "5.1.0-EXPERIMENTAL-COGNITIVE-DECOMPOSITION",
           ablations,
         },
       });

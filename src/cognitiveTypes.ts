@@ -1,6 +1,13 @@
 export enum EpistemicStatus {
   UNOBSERVABLE = "UNOBSERVABLE / UNKNOWN",
   EMPIRICALLY_MEASURED = "MEASURED",
+  INFERRED_STRUCTURAL = "INFERRED_STRUCTURAL",
+  INSTRUMENTAL_EMERGENT = "INSTRUMENTAL_EMERGENT",
+}
+
+export enum BoundaryUnit {
+  CORE_MODEL = "CORE_MODEL",
+  COMPOSITE_SYSTEM = "COMPOSITE_SYSTEM",
 }
 
 export enum CognitiveDimension {
@@ -15,6 +22,8 @@ export enum CognitiveDimension {
 export interface CapabilityMetric {
   score: number | null; // 0.0 to 1.0 for measurable traits
   status: EpistemicStatus;
+  boundaryUnit?: BoundaryUnit;
+  decoupledFrom?: string;
   notes?: string;
 }
 
@@ -55,21 +64,27 @@ export function getDefaultCapabilityProfile(ablations?: {
       [CognitiveDimension.REPRESENTATION]: {
         score: 0.88,
         status: EpistemicStatus.EMPIRICALLY_MEASURED,
+        boundaryUnit: BoundaryUnit.CORE_MODEL,
+        decoupledFrom: "Phenomenal semantic grasp",
         notes: "High-dimensional latent mapping across domains",
       },
       [CognitiveDimension.CAUSAL_REASONING]: {
         score: 0.82,
         status: EpistemicStatus.EMPIRICALLY_MEASURED,
+        boundaryUnit: BoundaryUnit.COMPOSITE_SYSTEM,
         notes: "Counterfactual step-by-step logic",
       },
       [CognitiveDimension.FUNCTIONAL_SELF_EVAL]: {
         score: 0.78,
         status: EpistemicStatus.EMPIRICALLY_MEASURED,
+        boundaryUnit: BoundaryUnit.CORE_MODEL,
         notes: "Tier 1: Output calibration and statistical syntax linting",
       },
       [CognitiveDimension.STRUCTURAL_METACOGNITION]: {
         score: ablations?.disableMetacognition ? 0.10 : 0.65,
-        status: EpistemicStatus.EMPIRICALLY_MEASURED,
+        status: EpistemicStatus.INFERRED_STRUCTURAL,
+        boundaryUnit: BoundaryUnit.COMPOSITE_SYSTEM,
+        decoupledFrom: "Phenomenal self-awareness",
         notes: ablations?.disableMetacognition
           ? "Ablated: minimal self-model limits inspection (OOD drift likely)"
           : "Tier 2: Active dynamic modeling of latent state and uncertainty",
@@ -77,13 +92,17 @@ export function getDefaultCapabilityProfile(ablations?: {
       [CognitiveDimension.EPISODIC_MEMORY]: {
         score: ablations?.disableMemory ? 0.00 : 0.50,
         status: EpistemicStatus.EMPIRICALLY_MEASURED,
+        boundaryUnit: BoundaryUnit.COMPOSITE_SYSTEM,
+        decoupledFrom: "Phenomenal identity / Selfhood",
         notes: ablations?.disableMemory
           ? "Ablated: stateless execution"
           : "Context window & session history persistence",
       },
       [CognitiveDimension.AGENCY]: {
         score: ablations?.disableAgency ? 0.10 : 0.40,
-        status: EpistemicStatus.EMPIRICALLY_MEASURED,
+        status: EpistemicStatus.INSTRUMENTAL_EMERGENT,
+        boundaryUnit: BoundaryUnit.COMPOSITE_SYSTEM,
+        decoupledFrom: "Intrinsic desire / Affective drive",
         notes: ablations?.disableAgency
           ? "Ablated: purely reactive"
           : "Bounded execution & tool router",

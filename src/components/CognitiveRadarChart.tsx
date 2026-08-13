@@ -51,6 +51,7 @@ export const CognitiveRadarChart: React.FC<CognitiveRadarChartProps> = ({
     label: string;
     score: number;
     description: string;
+    decoupledFrom?: string;
   } | null>(null);
 
   useEffect(() => {
@@ -224,11 +225,20 @@ export const CognitiveRadarChart: React.FC<CognitiveRadarChartProps> = ({
       .attr("stroke-width", 2)
       .style("cursor", "pointer")
       .on("mouseover", (_, d) => {
+        // Need to find decoupledFrom from original data
+        // For simplicity, we can pass it down through dataPoints or fetch it here.
+        let df: string | undefined = undefined;
+        if (d.key === "structural_representation") df = "Phenomenal semantic grasp";
+        if (d.key === "structural_metacognition") df = "Phenomenal self-awareness";
+        if (d.key === "persistent_state") df = "Phenomenal identity / Selfhood";
+        if (d.key === "goal_directed_action") df = "Intrinsic desire / Affective drive";
+        
         setHoveredData({
           key: d.key,
           label: d.fullName,
           score: d.score,
-          description: d.description
+          description: d.description,
+          decoupledFrom: df
         });
       })
       .on("mouseout", () => {
@@ -256,11 +266,16 @@ export const CognitiveRadarChart: React.FC<CognitiveRadarChartProps> = ({
               </span>
             </div>
             <p className="text-neutral-500 text-[11px] leading-tight">{hoveredData.description}</p>
+            {hoveredData.decoupledFrom && (
+              <p className="text-[10px] text-amber-700 font-mono mt-1 pt-1 border-t border-amber-100">
+                <span className="font-semibold">Decoupled From:</span> {hoveredData.decoupledFrom}
+              </p>
+            )}
           </div>
         ) : (
           <div className="flex items-center justify-between text-neutral-500 text-[11px]">
             <span>Hover vertex nodes to inspect cognitive dimension values.</span>
-            <span className="font-mono text-[10px] text-indigo-600 font-medium">Epistemic v5.0</span>
+            <span className="font-mono text-[10px] text-indigo-600 font-medium">Epistemic v5.1</span>
           </div>
         )}
       </div>
