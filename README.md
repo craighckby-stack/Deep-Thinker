@@ -1,3 +1,5 @@
+https://ai.studio/apps/6547fc33-852c-464c-a97c-d1f5227e1df9
+
 # Deep Thinker — Cognitive Ablation & Diagnostic Apparatus (v5.0)
 
 **Deep Thinker** is a rigorously designed AI diagnostic web application built with **Gemini 3.6 Flash, Express, React 19, and D3.js**. It serves as an experimental chamber to visualize, stress-test, and selectively ablate the cognitive dimensions of Large Language Models.
