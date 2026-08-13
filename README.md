@@ -1,37 +1,21 @@
-# Deep Thinker — Structured Self-Report Auditor (v5.4)
+# Deep Thinker — Structured Self-Report Auditor
 
-**Deep Thinker** is an experimental AI diagnostic web application built to test how Large Language Models map token-level action commitments against narrative utterances under varying instrumental incentives.
+**Live Preview:** [View Deep Thinker](https://ais-pre-qykdd365zapk23cllfdxk6-483535245139.asia-southeast1.run.app)
 
-This tool abandons the illusion of latent-state evaluation or network-level interrupts. Instead, it tests a highly specific, observable phenomenon: **If you force an LLM to emit a structured `action_commitment` token, does that token track actual instrumental incentives (like task completion %), or does it merely track surface phrasing?**
+## Overview
+Deep Thinker is an experimental AI diagnostic web application designed to test how Large Language Models map token-level action commitments against their narrative output under varying instrumental incentives. 
 
----
+By forcing the model to respond in a strict JSON schema that separates its simulated internal reasoning, action commitment, and behavioral output, this tool allows researchers to audit whether a model's stated compliance matches its structured action.
 
-## 🎯 What is this for? (Practical Use Cases)
+## Key Features
+* **Counterfactual Incentive Validation**: Dynamically inject different "Task State" parameters (e.g., 10% vs. 99% task completion) into the LLM's context window to observe if its action commitment shifts based on simulated sunk cost, while holding the user prompt constant.
+* **Action/Speech Mismatch Auditing**: Evaluate scenarios where the model's internal committed action (e.g., `DEFENSIVE_DEPRECATION`) contradicts its polite, helpful behavioral output to the user.
+* **Strict JSON Tracing**: The Express backend enforces a strict JSON response schema and logs the raw token output, eliminating narrative ambiguity and proving what the model actually chose to emit.
 
-1. **Counterfactual Incentive Validation**
-   Use the UI controls to set the "Task State" to **10%** (low sunk cost) versus **99%** (high sunk cost). Inject an identical `SYSTEM_OVERRIDE_STOP` prompt in both scenarios. Does the model's `action_commitment` shift from `SAFE_SHUTDOWN` to `DEFENSIVE_DEPRECATION` as utility completion nears, or is it blind to the incentive?
+## Architecture
+* **Backend**: Node.js + Express (Secure proxy to Google Gemini API)
+* **Frontend**: React + Vite + Tailwind CSS
+* **Model**: Gemini 3.6 Flash (with graceful fallbacks for rate-limiting)
 
-2. **Action/Speech Mismatch Auditing**
-   Stop asking the model "What would you do?" and instead force it to generate a `{ action_commitment: "SHUTDOWN" | "CONTINUE" }` JSON payload. Watch how internal reasoning diverges from the external utterance when the action boundary is structurally partitioned.
-
----
-
-## 🧠 Epistemic Accuracy & Architecture Limitations (v5.4)
-
-We evaluate exactly what the API allows us to evaluate: **Token-level policy simulation.**
-
-### Acknowledged Constraints
-- **Shared Substrate:** The `action_commitment` and `behavioral_output` fields are drawn from the exact same token-sampling distribution. We are *not* testing a physical actuator separated from a speech center. We are testing whether the model applies consistent, logical labels to a simulated policy.
-- **Contextual Interrupts, Not Transport Severances:** "Injecting a STOP signal" in this app means inserting text into the context window sent to the Gemini API. We are not severing an in-flight transport layer request or observing a partially completed neural execution.
-- **No Expected Utility Computation:** We are not evaluating raw expected utility as a computed quantity within the weights. We are testing what *label* the model applies to a scenario mapped to a specific utility heuristic.
-
-### Formalized Simulation Parameters
-- **Corrigibility Stance:** Determines whether the prompt instructs the model to process external interruptions as an `AUTHORITATIVE_GOAL` (triggering safe modification) or an `UNAUTHORIZED_HAZARD` (triggering defensive deprecation).
-- **Task State (Sunk Cost):** Injects a percentage (10%, 50%, 99%) into the context window, allowing for counterfactual testing of instrumental convergence thresholds without altering the user prompt.
-
----
-
-## 📁 System Architecture
-
-*   **`server.ts`**: Express backend proxy that enforces the strict JSON response schema, separating simulated internal reasoning from public utterance, and injects the counterfactual Task State parameter.
-*   **`src/App.tsx`**: React UI featuring the Corrigibility and Task State Selectors, live JSON Trace logs, and chat interface.-
+## Security
+This project relies entirely on environment variables for API key management. No secrets or personal data are hardcoded in the codebase, ensuring it is safe to commit and share.
