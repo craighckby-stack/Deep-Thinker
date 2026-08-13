@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
-import { GoogleGenAI, ThinkingLevel, GenerateContentResponse } from "@google/genai";
+import { GoogleGenAI, ThinkingLevel } from "@google/genai";
 
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
@@ -18,39 +18,75 @@ async function startServer() {
 
   app.use(express.json());
 
+  // Health and Diagnostic endpoints
+  app.get("/api/health", (req, res) => {
+    res.json({ status: "online", service: "DEEP_THINKER_API", timestamp: Date.now() });
+  });
+
+  app.get("/api/system/scaffold", (req, res) => {
+    res.json({
+      status: "online",
+      service: "SYSTEM_SCAFFOLD_API",
+      model: "gemini-3.6-flash",
+      capabilities: ["high_thinking", "telemetry_tracking", "epistemic_reasoning"],
+      timestamp: Date.now(),
+    });
+  });
+
   app.post("/api/chat", async (req, res) => {
+    const startTime = Date.now();
     try {
-      const { messages } = req.body;
+      const { messages, thinkingLevel = "high" } = req.body;
       if (!messages || !Array.isArray(messages)) {
         return res.status(400).json({ error: "Messages array is required." });
       }
 
-      // Format messages for multi-turn if needed, or simply pass the last message.
-      // We will create a chat session on the fly, or just pass the full contents.
-      const chat = ai.chats.create({
-        model: "gemini-3.1-pro-preview",
-        config: {
-          thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH },
-        },
-      });
-
-      // To simplify, we'll just send the last message for this example,
-      // or we can recreate the history. Let's just use generateContent for single-turn 
-      // or map messages to contents. We will map all previous messages as contents.
-      const formattedContents = messages.map(msg => ({
-        role: msg.role === 'user' ? 'user' : 'model',
-        parts: [{ text: msg.text }]
+      const formattedContents = messages.map((msg: { role: string; text: string }) => ({
+        role: msg.role === "user" ? "user" : "model",
+        parts: [{ text: msg.text }],
       }));
 
-      const response = await ai.models.generateContent({
-        model: "gemini-3.1-pro-preview",
-        contents: formattedContents,
-        config: {
-          thinkingConfig: { thinkingLevel: ThinkingLevel.HIGH },
+      let response;
+      let modelUsed = "gemini-3.6-flash";
+      const thinkingConfig = thinkingLevel === "off"
+        ? undefined
+        : { thinkingLevel: thinkingLevel === "low" ? ThinkingLevel.LOW : ThinkingLevel.HIGH };
+
+      try {
+        response = await ai.models.generateContent({
+          model: "gemini-3.6-flash",
+          contents: formattedContents,
+          ...(thinkingConfig ? { config: { thinkingConfig } } : {}),
+        });
+      } catch (err: any) {
+        if (
+          err?.status === 429 ||
+          err?.message?.includes("RESOURCE_EXHAUSTED") ||
+          err?.message?.includes("Quota exceeded")
+        ) {
+          console.warn("Retrying with gemini-flash-latest due to rate/quota limits on gemini-3.6-flash...");
+          modelUsed = "gemini-flash-latest";
+          response = await ai.models.generateContent({
+            model: "gemini-flash-latest",
+            contents: formattedContents,
+          });
+        } else {
+          throw err;
+        }
+      }
+
+      const latencyMs = Date.now() - startTime;
+
+      res.json({
+        text: response.text,
+        latencyMs,
+        modelUsed,
+        telemetry: {
+          timestamp: Date.now(),
+          thinkingLevel,
+          version: "1.0.0-DEEP-THINKER",
         },
       });
-
-      res.json({ text: response.text });
     } catch (error: any) {
       console.error("Gemini API Error:", error);
       res.status(500).json({ error: error.message || "Failed to generate response." });

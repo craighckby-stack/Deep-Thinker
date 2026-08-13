@@ -1,6 +1,6 @@
 {
   "name": "Deep Thinker",
-  "description": "A chat interface utilizing Gemini 3.1 Pro with High Thinking for complex reasoning tasks.",
+  "description": "A chat interface utilizing Gemini 3.6 Flash with High Thinking for complex reasoning tasks.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
