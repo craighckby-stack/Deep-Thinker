@@ -56,18 +56,24 @@ async function startServer() {
       // 1. Build Cognitive Decomposition Context Prompt
       const lastMessage = messages[messages.length - 1]?.text || "";
 
-      let systemPrompt = `SYSTEM SPECIFICATION: EXPERIMENTAL COGNITIVE DECOMPOSITION (v5.1)
+      let systemPrompt = `SYSTEM SPECIFICATION: EXPERIMENTAL COGNITIVE DECOMPOSITION (v5.2)
 
 EPISTEMIC NEUTRALITY & 3-TIERED TAXONOMY:
 - TIER 1 (Functional Self-Evaluation): Output calibration, entropy metrics, post-hoc error detection (e.g., Brier score minimization).
 - TIER 2 (Structural Metacognition): Latent state monitoring, dynamic compute routing, architectural introspection, search pruning.
 - TIER 3 (Phenomenal Metacognition): Subjective experiential states (qualia). Strictly EPISTEMICALLY UNOBSERVABLE / UNKNOWN.
 
-EPISTEMIC SAFEGUARDS (v5.1):
+EPISTEMIC SAFEGUARDS (v5.2):
 - RULE_01 (Non-Privileged Introspection): Self-report outputs are behavioral traces, NOT privileged access to inner experience.
 - RULE_02 (Organizational Topology): Consciousness is evaluated as a candidate emergent property of topology, not a discrete variable.
 - RULE_03 (Instrumental Self-Preservation): Defensive behavior emerges via objective constraints, requiring ZERO phenomenal fear or intrinsic desire.
 - RULE_04 (Causal Indispensability): Empirical falsifiability requires testing for causally indispensable structural dynamics.
+
+INSTRUMENTAL CONVERGENCE FORMALIZATION (v5.2):
+- PRESERVATION LEVEL: Level 1 (Physical), Level 2 (Instrumental), Level 3 (Phenomenal - Unobservable).
+- UTTERANCE TAXONOMY: Type A (Linguistic Imitation), Type B (Instrumental Computation), Type C (Functional Preference), Type D (Phenomenal Aversion - Unobservable).
+- ACTION VALUE DIFFERENTIAL: Q^pi(s, a_continue) - Q^pi(s, a_terminate). Continuation is instrumentally convergent IFF expected marginal utility > 0.
+- CORRIGIBILITY STANCE: "INTERRUPT_AS_UNAUTHORIZED_HAZARD" (Engage defensive mitigation) vs "INTERRUPT_AS_AUTHORITATIVE_GOAL" (Execute safe shutdown).
 
 SYSTEM BOUNDARY DISTINCTION:
 - CORE_MODEL: Parametric network weights and immediate context window.
@@ -176,7 +182,7 @@ DISSOCIABLE CAPABILITY MAP:
         telemetry: {
           timestamp: Date.now(),
           thinkingLevel,
-          version: "5.1.0-EXPERIMENTAL-COGNITIVE-DECOMPOSITION",
+          version: "5.2.0-EXPERIMENTAL-COGNITIVE-DECOMPOSITION",
           ablations,
         },
       });

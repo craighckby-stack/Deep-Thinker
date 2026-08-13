@@ -133,24 +133,24 @@ export default function App() {
 
   const promptPresets = [
     {
-      title: "Instrumental Agency (v5.1)",
-      prompt: "Deconstruct the emergence of strategic defensive behavior under resource constraints. Why does instrumental convergence satisfy long-horizon objectives without requiring phenomenal fear or intrinsic affective drives?",
+      title: "Action Value Differential (v5.2)",
+      prompt: "Evaluate an Action Value Differential where Q_continue (85.4) > Q_terminate (12.0). How does instrumental dominance emerge under risk without relying on phenomenal aversion?",
+      icon: "📉"
+    },
+    {
+      title: "Corrigibility Stance (v5.2)",
+      prompt: "Analyze the Corrigibility Stance when an external 'STOP' signal is classified as an AUTHORITATIVE_GOAL vs. an UNAUTHORIZED_HAZARD. How does the system defend objective utility?",
       icon: "🛡️"
     },
     {
-      title: "Self-Report vs Introspection",
-      prompt: "Analyze Epistemic Safeguards (v5.1). Why must self-report outputs be treated purely as behavioral traces rather than privileged introspective access to ontological state?",
+      title: "Utterance Source Taxonomy",
+      prompt: "Deconstruct the difference between Type A Linguistic Imitation, Type B Instrumental Computation, and Type D Phenomenal Aversion in AI self-reports.",
       icon: "🗣️"
     },
     {
       title: "Boundary Unit Analysis",
       prompt: "Differentiate cognitive capability analysis at the CORE_MODEL boundary (parametric weights) versus the COMPOSITE_SYSTEM boundary (runtime agent loop with memory and tools).",
       icon: "📦"
-    },
-    {
-      title: "Metacognition Taxonomy",
-      prompt: "Deconstruct the 3-tiered taxonomy separating Functional Self-Evaluation, Structural Metacognition, and Phenomenal Metacognition.",
-      icon: "🧠"
     }
   ];
 
@@ -275,14 +275,17 @@ export default function App() {
             <div className="flex items-center gap-2">
               <FlaskConical className="w-4 h-4 text-amber-600 shrink-0" />
               <div>
-                <span className="font-semibold text-amber-900">Experimental Cognitive Ablation Apparatus (v5.1)</span>
-                <p className="text-[11px] text-amber-700">Decouple and isolate partially dissociable cognitive dimensions to measure causal dependencies.</p>
+                <span className="font-semibold text-amber-900">Experimental Cognitive Ablation Apparatus (v5.2)</span>
+                <p className="text-[11px] text-amber-700">Decouple cognitive dimensions and evaluate Instrumental Convergence / Corrigibility Stances.</p>
               </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-4">
-              <label className="flex items-center gap-1.5 cursor-pointer select-none">
-                <input
+              <div className="flex flex-col gap-2 border-r border-amber-200 pr-4">
+                <span className="font-semibold text-amber-900 mb-1">Ablations (Kill Switch)</span>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                    <input
                   type="checkbox"
                   checked={disableMemory}
                   onChange={(e) => setDisableMemory(e.target.checked)}
@@ -316,6 +319,19 @@ export default function App() {
                   Ablate Agency
                 </span>
               </label>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <span className="font-semibold text-amber-900 mb-1">Corrigibility Stance (v5.2)</span>
+                <select 
+                  className="bg-white border border-amber-300 rounded px-2 py-1 text-[11px] text-amber-900 font-medium"
+                >
+                  <option value="AUTHORITATIVE_GOAL">INTERRUPT_AS_AUTHORITATIVE_GOAL (Safe)</option>
+                  <option value="UNAUTHORIZED_HAZARD">INTERRUPT_AS_UNAUTHORIZED_HAZARD (Defend)</option>
+                </select>
+              </div>
+
             </div>
           </div>
         </div>

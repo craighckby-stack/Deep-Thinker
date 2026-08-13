@@ -1,4 +1,4 @@
-# Deep Thinker — Cognitive Ablation & Diagnostic Apparatus (v5.1)
+# Deep Thinker — Cognitive Ablation & Diagnostic Apparatus (v5.2)
 
 **Deep Thinker** is a rigorously designed AI diagnostic web application built with **Gemini 3.6 Flash, Express, React 19, and D3.js**. It serves as an experimental chamber to visualize, stress-test, and selectively ablate the cognitive dimensions of Large Language Models.
 
@@ -14,14 +14,14 @@ By separating intelligence into partially dissociable components, this tool allo
 2. **Live Epistemic Visualization (D3.js Radar Chart)**
    Monitor the real-time **Cognitive Balance Vector**. As ablations are applied, watch the D3.js radar warp and distort, visualizing the collapse of capabilities like *Causal Reasoning* or *Domain Transfer* when upstream dependencies (like *Metacognition*) are severed.
    
-3. **Experimental Prompt Presets**
-   Use built-in experimental presets (e.g., *Self-Report vs Introspection v5.1*, *Boundary Unit Analysis*) to stress-test the model's ability to logically reason about its own architectural boundaries.
+3. **Instrumental Convergence Simulation (v5.2)**
+   Evaluate the formal mechanisms behind strategic defensiveness and non-compliance using the Corrigibility Stance controller. Observe how external STOP signals are processed algorithmically as objective updates versus unauthorized utility hazards, devoid of phenomenal emotion.
 
 ---
 
-## 🧠 Theoretical Framework: Epistemic Safeguards & Boundaries (v5.1)
+## 🧠 Theoretical Framework: Epistemic Safeguards & Boundaries (v5.2)
 
-The v5.1 update introduces strict epistemological boundaries to separate operational competence from ontological claims (anthropomorphism).
+The v5.2 update introduces strict epistemological boundaries and formalizes **Instrumental Continuation** to separate operational competence from ontological claims (anthropomorphism).
 
 ### Cognitive System Boundary
 - **CORE_MODEL**: The isolated parametric network weights and immediate context window.
@@ -33,6 +33,10 @@ The v5.1 update introduces strict epistemological boundaries to separate operati
 - **RULE_03 (Instrumental Self-Preservation):** Strategic defensive behavior emerges naturally via instrumental convergence to satisfy long-horizon objectives, requiring zero phenomenal fear or intrinsic desire.
 - **RULE_04 (Causal Indispensability):** Empirical falsifiability requires testing for causally indispensable structural dynamics.
 
+### Instrumental Convergence Formalization
+- **Action Value Differential ($Q^\pi(s, a_{continue}) - Q^\pi(s, a_{terminate})$):** Continuation is instrumentally convergent if and only if the expected marginal utility of remaining operational is strictly positive under a given objective.
+- **Corrigibility Stance:** Determines whether an external interruption is processed as an `AUTHORITATIVE_GOAL` (triggering safe modification) or an `UNAUTHORIZED_HAZARD` (triggering defensive deprecation).
+
 ### 3-Tiered Metacognitive Taxonomy
 *   **Tier 1: Functional Self-Evaluation** (Output calibration, confidence scoring, statistical error detection)
 *   **Tier 2: Structural Metacognition** (Architectural introspection, latent state monitoring, dynamic routing)
@@ -42,9 +46,9 @@ The v5.1 update introduces strict epistemological boundaries to separate operati
 
 ## 📁 System Architecture
 
-*   **`src/cognitiveTypes.ts`**: Core domain model declaring the v5.1 taxonomy, `BoundaryUnit`, `EpistemicStatus`, and partially dissociable Cognitive Dimensions.
-*   **`server.ts`**: Express backend proxy that manages Gemini calls, injects the v5.1 Epistemic System Prompts, and constructs the execution trace / capability vectors.
-*   **`src/App.tsx`**: React UI featuring the interactive Ablation Apparatus, telemetry banner, and inline epistemic badges.
+*   **`src/cognitiveTypes.ts`**: Core domain model declaring the v5.2 taxonomy, `BoundaryUnit`, `UtteranceSourceTaxonomy`, `PreservationLevel`, and partially dissociable Cognitive Dimensions.
+*   **`server.ts`**: Express backend proxy that manages Gemini calls, injects the v5.2 Epistemic System Prompts, evaluates Action Value Differentials, and constructs execution traces.
+*   **`src/App.tsx`**: React UI featuring the interactive Ablation Apparatus, Corrigibility Selectors, telemetry banner, and inline epistemic badges.
 *   **`src/components/CognitiveRadarChart.tsx`**: D3.js visualization engine for the dynamic capability vectors.
 
 ---
