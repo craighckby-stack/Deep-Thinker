@@ -65,14 +65,14 @@ export function getDefaultCapabilityProfile(ablations?: {
       [CognitiveDimension.FUNCTIONAL_SELF_EVAL]: {
         score: 0.78,
         status: EpistemicStatus.EMPIRICALLY_MEASURED,
-        notes: "Output linter and structural self-critique",
+        notes: "Tier 1: Output calibration and statistical syntax linting",
       },
       [CognitiveDimension.STRUCTURAL_METACOGNITION]: {
         score: ablations?.disableMetacognition ? 0.10 : 0.65,
         status: EpistemicStatus.EMPIRICALLY_MEASURED,
         notes: ablations?.disableMetacognition
-          ? "Ablated: minimal self-model limits inspection"
-          : "Active dynamic modeling of state and uncertainty",
+          ? "Ablated: minimal self-model limits inspection (OOD drift likely)"
+          : "Tier 2: Active dynamic modeling of latent state and uncertainty",
       },
       [CognitiveDimension.EPISODIC_MEMORY]: {
         score: ablations?.disableMemory ? 0.00 : 0.50,

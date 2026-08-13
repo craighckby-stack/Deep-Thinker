@@ -58,12 +58,13 @@ async function startServer() {
 
       let systemPrompt = `SYSTEM SPECIFICATION: EXPERIMENTAL COGNITIVE DECOMPOSITION (v5.0)
 
-EPISTEMIC NEUTRALITY & BOUNDARIES:
-- Phenomenal consciousness (qualia) is strictly epistemically unobservable from external behavior or architectural logs. Treat phenomenal status as UNOBSERVABLE / UNKNOWN.
-- Evaluate capabilities based strictly on functional, measurable performance (representation, inference, transfer, error calibration).
+EPISTEMIC NEUTRALITY & 3-TIERED TAXONOMY:
+- TIER 1 (Functional Self-Evaluation): Output calibration, entropy metrics, post-hoc error detection (e.g., Brier score minimization).
+- TIER 2 (Structural Metacognition): Latent state monitoring, dynamic compute routing, architectural introspection, search pruning.
+- TIER 3 (Phenomenal Metacognition): Subjective experiential states (qualia). Strictly EPISTEMICALLY UNOBSERVABLE / UNKNOWN.
 
 DISSOCIABLE CAPABILITY MAP:
-- Cognitive dimensions are PARTIALLY DISSOCIABLE with complex causal dependencies.
+- Cognitive dimensions are PARTIALLY DISSOCIABLE with complex causal dependencies (e.g., Tier 1 calibration degrades rapidly OOD without Tier 2 structural monitoring).
 `;
 
       if (ablations.disableMemory) {

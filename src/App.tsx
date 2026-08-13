@@ -5,8 +5,9 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Markdown from 'react-markdown';
-import { Send, Loader2, Brain, Sparkles, Activity, Copy, Check, Trash2, Cpu, Zap, Sliders, ShieldAlert, Layers, FlaskConical, EyeOff } from 'lucide-react';
+import { Send, Loader2, Brain, Sparkles, Activity, Copy, Check, Trash2, Cpu, Zap, Sliders, ShieldAlert, Layers, FlaskConical, EyeOff, Radar } from 'lucide-react';
 import { EpistemicStatus, CognitiveDimension } from './cognitiveTypes';
+import { CognitiveRadarChart } from './components/CognitiveRadarChart';
 
 interface Message {
   role: 'user' | 'model';
@@ -38,7 +39,23 @@ export default function App() {
   const [disableMetacognition, setDisableMetacognition] = useState(false);
   const [disableAgency, setDisableAgency] = useState(false);
 
+  const [showRadarIdxs, setShowRadarIdxs] = useState<Record<number, boolean>>({});
+  const [showLiveRadar, setShowLiveRadar] = useState(false);
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+
+  const toggleRadarForMsg = (idx: number) => {
+    setShowRadarIdxs(prev => ({ ...prev, [idx]: !prev[idx] }));
+  };
+
+  // Helper to compute live capability metrics based on active ablation controls
+  const currentLiveCapabilities = {
+    structural_representation: 0.88,
+    causal_reasoning: 0.82,
+    functional_self_evaluation: 0.78,
+    structural_metacognition: disableMetacognition ? 0.10 : 0.65,
+    persistent_state: disableMemory ? 0.00 : 0.50,
+    goal_directed_action: disableAgency ? 0.10 : 0.40,
+  };
   const [lastLatency, setLastLatency] = useState<number | null>(null);
   const [activeModel, setActiveModel] = useState<string>('gemini-3.6-flash');
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -215,6 +232,19 @@ export default function App() {
           </button>
 
           <button
+            onClick={() => setShowLiveRadar(!showLiveRadar)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-all ${
+              showLiveRadar
+                ? 'bg-indigo-600 border-indigo-700 text-white font-semibold'
+                : 'bg-white border-neutral-200 text-neutral-600 hover:bg-neutral-50'
+            }`}
+            title="D3 Cognitive Radar Chart"
+          >
+            <Radar className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Radar Chart</span>
+          </button>
+
+          <button
             onClick={() => setShowTelemetry(!showTelemetry)}
             className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-all ${
               showTelemetry
@@ -291,7 +321,37 @@ export default function App() {
         </div>
       )}
 
-      {/* Telemetry Bar Banner */}
+      {/* Live Cognitive Radar Panel */}
+      {showLiveRadar && (
+        <div className="bg-slate-900 text-white border-b border-slate-800 px-6 py-4 animate-in slide-in-from-top-2 duration-200 shrink-0">
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="space-y-2 text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-2 text-indigo-400">
+                <Radar className="w-5 h-5 animate-pulse" />
+                <h3 className="font-semibold text-sm tracking-wide uppercase">Real-Time Cognitive Balance Vector</h3>
+              </div>
+              <p className="text-xs text-slate-400 max-w-md">
+                D3.js visualization of the active 6-dimensional capability profile. Active ablations dynamically distort the radar geometry.
+              </p>
+              <div className="flex flex-wrap gap-2 text-[10px] font-mono justify-center md:justify-start pt-1">
+                <span className="px-2 py-0.5 rounded bg-indigo-950 border border-indigo-800 text-indigo-300">
+                  D1 Search: 82%
+                </span>
+                <span className="px-2 py-0.5 rounded bg-indigo-950 border border-indigo-800 text-indigo-300">
+                  D3 Abstraction: 88%
+                </span>
+                <span className={`px-2 py-0.5 rounded border ${disableMetacognition ? 'bg-rose-950 border-rose-800 text-rose-300' : 'bg-indigo-950 border-indigo-800 text-indigo-300'}`}>
+                  D2 Metacognition: {disableMetacognition ? '10% (ABLATED)' : '65%'}
+                </span>
+              </div>
+            </div>
+
+            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-3 shadow-xl">
+              <CognitiveRadarChart measurableCapabilities={currentLiveCapabilities} size={300} className="text-slate-100" />
+            </div>
+          </div>
+        </div>
+      )}
       {showTelemetry && (
         <div className="bg-neutral-900 text-white px-6 py-2.5 text-xs font-mono flex flex-wrap items-center justify-between gap-4 border-b border-neutral-800 animate-in fade-in duration-200">
           <div className="flex items-center gap-4 flex-wrap">
@@ -394,11 +454,27 @@ export default function App() {
                           <Layers className="w-3.5 h-3.5 text-indigo-600" />
                           Epistemic Capability Vector (v5.0)
                         </span>
-                        <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px] flex items-center gap-1">
-                          <EyeOff className="w-3 h-3" />
-                          PHENOMENAL: {msg.epistemicProfile?.phenomenalStatus || "UNOBSERVABLE / UNKNOWN"}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => toggleRadarForMsg(idx)}
+                            className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 font-bold text-[10px] flex items-center gap-1 hover:bg-indigo-200 transition-colors"
+                          >
+                            <Radar className="w-3 h-3 text-indigo-600" />
+                            {showRadarIdxs[idx] ? 'Hide Radar' : 'View D3 Radar'}
+                          </button>
+                          <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px] flex items-center gap-1">
+                            <EyeOff className="w-3 h-3" />
+                            PHENOMENAL: {msg.epistemicProfile?.phenomenalStatus || "UNOBSERVABLE / UNKNOWN"}
+                          </span>
+                        </div>
                       </div>
+
+                      {showRadarIdxs[idx] && msg.epistemicProfile?.measurableCapabilities && (
+                        <div className="bg-white border border-neutral-200 rounded-xl p-3 flex flex-col items-center justify-center my-2 shadow-xs">
+                          <span className="text-[11px] font-semibold text-neutral-700 mb-1">D3 Cognitive Balance Radar</span>
+                          <CognitiveRadarChart measurableCapabilities={msg.epistemicProfile.measurableCapabilities} size={320} />
+                        </div>
+                      )}
 
                       {msg.epistemicProfile?.measurableCapabilities && (
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[10px]">

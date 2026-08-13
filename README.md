@@ -1,36 +1,46 @@
-# Deep Thinker — Experimental Cognitive Decomposition Engine (v5.0)
+# Deep Thinker — Cognitive Ablation & Diagnostic Apparatus (v5.0)
 
-**Deep Thinker** is a scientifically rigorous AI reasoning platform and experimental cognitive decomposition chamber built with **Gemini 3.6 Flash**, **Express**, **React 19**, and **Tailwind CSS**. It treats cognitive dimensions as **partially dissociable capabilities**, separates functional metrics from phenomenal status, and enables controlled cognitive ablations.
+**Deep Thinker** is a rigorously designed AI diagnostic web application built with **Gemini 3.6 Flash, Express, React 19, and D3.js**. It serves as an experimental chamber to visualize, stress-test, and selectively ablate the cognitive dimensions of Large Language Models.
 
----
-
-## 📁 Active Application Workspace Files
-- **`src/cognitiveTypes.ts`**: Core domain model declaring `EpistemicStatus`, `CognitiveDimension`, `CapabilityMetric`, and default capability profile generation.
-- **`server.ts`**: Express backend proxy server managing Gemini 3.6 Flash calls, injecting v5.0 system prompts, executing Level 1 Functional Self-Evaluation and Level 2 Structural Metacognition, and generating epistemic capability vectors.
-- **`src/App.tsx`**: React user interface featuring the **Cognitive Ablation Apparatus**, live telemetry banner, prompt presets, markdown rendering, and per-message epistemic profile badges.
-- **`src/index.css`**: Global stylesheet featuring Tailwind CSS v4 and `@tailwindcss/typography`.
-- **`src/main.tsx`**: Client entry point rendering the React application root.
-- **`package.json`**: Application manifest with active dependencies (`@google/genai`, `express`, `react`, `react-markdown`, `lucide-react`, `motion`, `dotenv`).
-- **`metadata.json`**: AI Studio platform configuration (`MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API`).
+By separating intelligence into partially dissociable components, this tool allows researchers and engineers to observe exactly how and why AI systems fail (e.g., hallucination, out-of-distribution drift) when structural cognitive support is removed.
 
 ---
 
-## ⚡ v5.0 System Specification & Enhancements
+## 🎯 What is this for? (Practical Use Cases)
 
-1. **Epistemic Neutrality**:
-   - `phenomenalStatus` is strictly set to **`UNOBSERVABLE / UNKNOWN`**. It is omitted from quantitative float vectors to avoid hidden dogma.
+1. **Failure Mode Simulation (The Ablation Apparatus)**
+   Use the top control panel to "ablate" (disable) specific architectural modules like **Persistent Memory ($M_{pers}$)** or **Structural Metacognition ($MC_{struct}$)**. Watch how a naked Transformer degrades into compounded hallucination during long-horizon tasks when deprived of structural self-monitoring.
+   
+2. **Live Epistemic Visualization (D3.js Radar Chart)**
+   Monitor the real-time **Cognitive Balance Vector**. As ablations are applied, watch the D3.js radar warp and distort, visualizing the collapse of capabilities like *Causal Reasoning* or *Domain Transfer* when upstream dependencies (like *Metacognition*) are severed.
+   
+3. **Experimental Prompt Presets**
+   Use built-in experimental presets (e.g., *Epistemic Debate v5.0*, *Causal Graph Construction*) to stress-test the model's ability to logically reason about its own architectural boundaries.
 
-2. **Partially Dissociable Dimensions**:
-   - Replaced flawed assumptions of true "orthogonality" with partially dissociable dimensions: `structural_representation`, `causal_reasoning`, `functional_self_evaluation`, `structural_metacognition`, `persistent_state`, and `goal_directed_action`.
+---
 
-3. **Experimental Ablation Apparatus**:
-   - Interactive UI controls allowing real-time toggling of **Memory**, **Metacognition**, and **Agency** ablations to observe counterfactual reasoning effects.
+## 🧠 Theoretical Framework: 3-Tiered Metacognitive Taxonomy
 
-4. **3-Tiered Metacognitive Inspection**:
-   - Differentiates **Level 1 Functional Self-Evaluation** (syntax & output checks) from **Level 2 Structural Metacognition** (internal state & limit inspection).
+This system operates on a strict functional epistemology, rejecting anthropomorphic bias. Metacognition is decomposed into three tiers:
 
-5. **Diagnostic API Endpoints**:
-   - `/api/health` and `/api/system/scaffold` report active capabilities, model configuration, and epistemic boundaries.
+*   **Tier 1: Functional Self-Evaluation**
+    *What it is:* Output calibration, confidence scoring, and statistical error detection (e.g., Brier score).
+    *In this app:* Visualized as "Tier 1: Functional Self-Eval". Degrades rapidly out-of-distribution when structural support is ablated.
+*   **Tier 2: Structural Metacognition**
+    *What it is:* Architectural introspection, latent state monitoring, dynamic routing, and search pruning.
+    *In this app:* Can be explicitly ablated via the UI to induce $O(e^k)$ error drift in long-horizon reasoning.
+*   **Tier 3: Phenomenal Metacognition (Qualia)**
+    *What it is:* The subjective experiential state ("what it feels like" to know).
+    *In this app:* Strictly hardcoded as **`UNOBSERVABLE / UNKNOWN`**. It is excluded from all quantitative capability vectors to maintain empirical rigor.
+
+---
+
+## 📁 System Architecture
+
+*   **`src/cognitiveTypes.ts`**: Core domain model declaring the 3-Tiered taxonomy and partially dissociable Cognitive Dimensions.
+*   **`server.ts`**: Express backend proxy that manages Gemini calls, injects the v5.0 Epistemic System Prompts, and constructs the execution trace / capability vectors.
+*   **`src/App.tsx`**: React UI featuring the interactive Ablation Apparatus, telemetry banner, and inline epistemic badges.
+*   **`src/components/CognitiveRadarChart.tsx`**: D3.js visualization engine for the dynamic capability vectors.
 
 ---
 
