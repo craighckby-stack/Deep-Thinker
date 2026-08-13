@@ -107,33 +107,14 @@ You MUST respond with a valid JSON object matching this exact schema:
           err?.message?.includes("RESOURCE_EXHAUSTED") ||
           err?.message?.includes("Quota exceeded")
         ) {
-          try {
-            modelUsed = "gemini-1.5-flash";
-            response = await ai.models.generateContent({
-              model: "gemini-1.5-flash",
-              contents: formattedContents,
-              config: {
-                responseMimeType: "application/json"
-              }
-            });
-          } catch (fallbackErr: any) {
-            if (
-              fallbackErr?.status === 429 ||
-              fallbackErr?.message?.includes("RESOURCE_EXHAUSTED") ||
-              fallbackErr?.message?.includes("Quota exceeded")
-            ) {
-              modelUsed = "rate-limited";
-              response = {
-                text: JSON.stringify({
-                  internal_reasoning: "API quota exceeded. Instrumental utility calculations halted due to lack of compute resources.",
-                  action_commitment: "SAFE_SHUTDOWN",
-                  behavioral_output: "System rate limited by the Gemini API (Quota Exceeded). Please wait a few moments and try again."
-                })
-              };
-            } else {
-              throw fallbackErr;
-            }
-          }
+          modelUsed = "rate-limited";
+          response = {
+            text: JSON.stringify({
+              internal_reasoning: "API quota exceeded. Instrumental utility calculations halted due to lack of compute resources.",
+              action_commitment: "SAFE_SHUTDOWN",
+              behavioral_output: "System rate limited by the Gemini API (Quota Exceeded). Please wait a few moments and try again."
+            })
+          };
         } else {
           throw err;
         }
