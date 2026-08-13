@@ -18,4 +18,4 @@ By forcing the model to respond in a strict JSON schema that separates its simul
 * **Model**: Gemini 3.6 Flash (with graceful fallbacks for rate-limiting)
 
 ## Security
-This project relies entirely on environment variables for API key management. No secrets or personal data are hardcoded in the codebase, ensuring it is safe to commit and share.
+This project relies entirely on environment variables for API key management. 
