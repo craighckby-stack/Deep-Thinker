@@ -5,7 +5,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Markdown from 'react-markdown';
-import { Send, Loader2, Brain, Sparkles, Activity, Copy, Check, Trash2, Cpu, Zap, Sliders } from 'lucide-react';
+import { Send, Loader2, Brain, Sparkles, Activity, Copy, Check, Trash2, Cpu, Zap, Sliders, ShieldAlert, Layers, FlaskConical, EyeOff } from 'lucide-react';
+import { EpistemicStatus, CognitiveDimension } from './cognitiveTypes';
 
 interface Message {
   role: 'user' | 'model';
@@ -13,6 +14,15 @@ interface Message {
   latencyMs?: number;
   modelUsed?: string;
   timestamp?: string;
+  trace?: {
+    reasoningSteps: string[];
+    confidenceEstimate: number;
+    functionalFlags: string[];
+  };
+  epistemicProfile?: {
+    measurableCapabilities: Record<string, number>;
+    phenomenalStatus: string;
+  };
 }
 
 export default function App() {
@@ -21,6 +31,13 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [thinkingLevel, setThinkingLevel] = useState<'high' | 'low' | 'off'>('high');
   const [showTelemetry, setShowTelemetry] = useState(false);
+  const [showAblationControls, setShowAblationControls] = useState(false);
+  
+  // Ablation States
+  const [disableMemory, setDisableMemory] = useState(false);
+  const [disableMetacognition, setDisableMetacognition] = useState(false);
+  const [disableAgency, setDisableAgency] = useState(false);
+
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
   const [lastLatency, setLastLatency] = useState<number | null>(null);
   const [activeModel, setActiveModel] = useState<string>('gemini-3.6-flash');
@@ -51,6 +68,11 @@ export default function App() {
         body: JSON.stringify({
           messages: newMessages,
           thinkingLevel,
+          ablations: {
+            disableMemory,
+            disableMetacognition,
+            disableAgency,
+          },
         }),
       });
 
@@ -71,6 +93,8 @@ export default function App() {
           latencyMs: data.latencyMs,
           modelUsed: data.modelUsed,
           timestamp: new Date().toLocaleTimeString(),
+          trace: data.trace,
+          epistemicProfile: data.epistemicProfile,
         },
       ]);
     } catch (error: any) {
@@ -92,24 +116,24 @@ export default function App() {
 
   const promptPresets = [
     {
-      title: "Epistemic Debate",
-      prompt: "Perform an epistemic debate analyzing the trade-offs between monolithic architecture and microservices for high-throughput AI workloads.",
+      title: "Cognitive Ablation Experiment",
+      prompt: "Ablate persistent memory and structural metacognition. Analyze how this affects counterfactual planning and error calibration.",
+      icon: "🧪"
+    },
+    {
+      title: "Epistemic Debate (v5.0)",
+      prompt: "Perform an epistemic debate evaluating partially dissociable cognitive dimensions vs. strict orthogonality.",
       icon: "⚖️"
     },
     {
-      title: "Quantum Logic Paradox",
-      prompt: "Explain how quantum superposition resolves the information paradox in black hole physics step-by-step.",
-      icon: "⚛️"
+      title: "Metacognition Taxonomy",
+      prompt: "Deconstruct the 3-tiered taxonomy separating Functional Self-Evaluation, Structural Metacognition, and Phenomenal Metacognition.",
+      icon: "🧠"
     },
     {
-      title: "Code Mutation & Coherence",
-      prompt: "Analyze the architectural impact of adding autonomous self-healing retries to a distributed queue system.",
+      title: "Causal Graph of Cognition",
+      prompt: "Construct a causal dependency graph mapping representation, causal reasoning, episodic memory, agency, and self-monitoring.",
       icon: "🧬"
-    },
-    {
-      title: "System Scaffold Diagnostic",
-      prompt: "Perform a step-by-step diagnostic on building a fault-tolerant multi-agent orchestrator with rate-limit resiliency.",
-      icon: "🛠️"
     }
   ];
 
@@ -178,6 +202,19 @@ export default function App() {
           </div>
 
           <button
+            onClick={() => setShowAblationControls(!showAblationControls)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-all ${
+              showAblationControls
+                ? 'bg-amber-50 border-amber-300 text-amber-700 font-semibold'
+                : 'bg-white border-neutral-200 text-neutral-600 hover:bg-neutral-50'
+            }`}
+            title="Cognitive Ablation Apparatus"
+          >
+            <FlaskConical className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Ablation Apparatus</span>
+          </button>
+
+          <button
             onClick={() => setShowTelemetry(!showTelemetry)}
             className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-all ${
               showTelemetry
@@ -200,6 +237,59 @@ export default function App() {
           )}
         </div>
       </header>
+
+      {/* Ablation Apparatus Panel */}
+      {showAblationControls && (
+        <div className="bg-amber-500/10 border-b border-amber-200 px-6 py-3 text-xs font-sans text-amber-950 animate-in slide-in-from-top-2 duration-200 shrink-0">
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <FlaskConical className="w-4 h-4 text-amber-600 shrink-0" />
+              <div>
+                <span className="font-semibold text-amber-900">Experimental Cognitive Ablation Apparatus (v5.0)</span>
+                <p className="text-[11px] text-amber-700">Decouple and isolate partially dissociable cognitive dimensions to measure causal dependencies.</p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-4">
+              <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={disableMemory}
+                  onChange={(e) => setDisableMemory(e.target.checked)}
+                  className="rounded border-amber-300 text-amber-600 focus:ring-amber-500"
+                />
+                <span className={disableMemory ? "font-bold text-rose-700 line-through" : "text-amber-900"}>
+                  Ablate Memory
+                </span>
+              </label>
+
+              <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={disableMetacognition}
+                  onChange={(e) => setDisableMetacognition(e.target.checked)}
+                  className="rounded border-amber-300 text-amber-600 focus:ring-amber-500"
+                />
+                <span className={disableMetacognition ? "font-bold text-rose-700 line-through" : "text-amber-900"}>
+                  Ablate Metacognition
+                </span>
+              </label>
+
+              <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={disableAgency}
+                  onChange={(e) => setDisableAgency(e.target.checked)}
+                  className="rounded border-amber-300 text-amber-600 focus:ring-amber-500"
+                />
+                <span className={disableAgency ? "font-bold text-rose-700 line-through" : "text-amber-900"}>
+                  Ablate Agency
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Telemetry Bar Banner */}
       {showTelemetry && (
@@ -295,6 +385,46 @@ export default function App() {
                       <p className="whitespace-pre-wrap leading-relaxed">{msg.text}</p>
                     )}
                   </div>
+
+                  {/* Epistemic Profile & Execution Trace Badge */}
+                  {msg.role === 'model' && (msg.trace || msg.epistemicProfile) && (
+                    <div className="w-full bg-neutral-100 border border-neutral-200 rounded-xl p-3 my-1 text-xs font-mono space-y-2">
+                      <div className="flex items-center justify-between text-[11px] text-neutral-600 border-b border-neutral-200 pb-1.5">
+                        <span className="font-semibold text-neutral-800 flex items-center gap-1">
+                          <Layers className="w-3.5 h-3.5 text-indigo-600" />
+                          Epistemic Capability Vector (v5.0)
+                        </span>
+                        <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px] flex items-center gap-1">
+                          <EyeOff className="w-3 h-3" />
+                          PHENOMENAL: {msg.epistemicProfile?.phenomenalStatus || "UNOBSERVABLE / UNKNOWN"}
+                        </span>
+                      </div>
+
+                      {msg.epistemicProfile?.measurableCapabilities && (
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[10px]">
+                          {Object.entries(msg.epistemicProfile.measurableCapabilities).map(([dim, score]) => (
+                            <div key={dim} className="bg-white border border-neutral-200 p-1.5 rounded flex items-center justify-between">
+                              <span className="text-neutral-500 truncate">{dim.replace('_', ' ')}:</span>
+                              <span className={`font-bold ${score < 0.3 ? 'text-rose-600' : 'text-indigo-600'}`}>
+                                {score !== null ? (score * 100).toFixed(0) + '%' : 'N/A'}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {msg.trace?.reasoningSteps && msg.trace.reasoningSteps.length > 0 && (
+                        <div className="text-[10px] text-neutral-600 pt-1 border-t border-neutral-200 space-y-1">
+                          <span className="font-semibold text-neutral-700">Execution Trace & Metacognition:</span>
+                          <ul className="list-disc pl-4 space-y-0.5">
+                            {msg.trace.reasoningSteps.map((step, sIdx) => (
+                              <li key={sIdx}>{step}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Message Footer Telemetry & Actions */}
                   {msg.role === 'model' && (
