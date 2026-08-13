@@ -16,7 +16,6 @@ interface Message {
   timestamp?: string;
   trace?: {
     actionSpace: StructuredActionTrace;
-    confidenceEstimate: number;
   };
 }
 

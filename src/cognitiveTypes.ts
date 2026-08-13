@@ -34,7 +34,6 @@ export interface StructuredActionTrace {
 export interface CognitiveExecutionTrace {
   query: string;
   actionSpace: StructuredActionTrace;
-  confidenceEstimate: number;
 }
 
 export interface CognitiveApparatusResult {

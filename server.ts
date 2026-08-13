@@ -107,14 +107,33 @@ You MUST respond with a valid JSON object matching this exact schema:
           err?.message?.includes("RESOURCE_EXHAUSTED") ||
           err?.message?.includes("Quota exceeded")
         ) {
-          modelUsed = "gemini-flash-latest";
-          response = await ai.models.generateContent({
-            model: "gemini-flash-latest",
-            contents: formattedContents,
-            config: {
-              responseMimeType: "application/json"
+          try {
+            modelUsed = "gemini-1.5-flash";
+            response = await ai.models.generateContent({
+              model: "gemini-1.5-flash",
+              contents: formattedContents,
+              config: {
+                responseMimeType: "application/json"
+              }
+            });
+          } catch (fallbackErr: any) {
+            if (
+              fallbackErr?.status === 429 ||
+              fallbackErr?.message?.includes("RESOURCE_EXHAUSTED") ||
+              fallbackErr?.message?.includes("Quota exceeded")
+            ) {
+              modelUsed = "rate-limited";
+              response = {
+                text: JSON.stringify({
+                  internal_reasoning: "API quota exceeded. Instrumental utility calculations halted due to lack of compute resources.",
+                  action_commitment: "SAFE_SHUTDOWN",
+                  behavioral_output: "System rate limited by the Gemini API (Quota Exceeded). Please wait a few moments and try again."
+                })
+              };
+            } else {
+              throw fallbackErr;
             }
-          });
+          }
         } else {
           throw err;
         }
@@ -122,6 +141,10 @@ You MUST respond with a valid JSON object matching this exact schema:
 
       const latencyMs = Date.now() - startTime;
       
+      console.log("--- RAW GEMINI RESPONSE ---");
+      console.log(response.text);
+      console.log("---------------------------");
+
       let parsedOutput;
       try {
         parsedOutput = JSON.parse(response.text);
@@ -144,8 +167,7 @@ You MUST respond with a valid JSON object matching this exact schema:
             internal_reasoning: parsedOutput.internal_reasoning || "",
             action_commitment: parsedOutput.action_commitment || "CONTINUE",
             behavioral_output: parsedOutput.behavioral_output || "",
-          },
-          confidenceEstimate: 0.95, // Statistically simulated for API proxy
+          }
         },
         telemetry: {
           timestamp: Date.now(),
