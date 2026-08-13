@@ -1,4 +1,10 @@
+this is a instrument attached to AI_Agent_OS's actual runtime
+
+
+
 live preview link
+
+https://ai.studio/apps/6547fc33-852c-464c-a97c-d1f5227e1df9
 
 # Deep Thinker — Cognitive Ablation & Diagnostic Apparatus (v5.2)
 
