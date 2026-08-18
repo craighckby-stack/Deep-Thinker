@@ -1,18 +1,85 @@
+<!--
+  =============================================================================
+  TESSERA AI AGENT OS — CLIENT ENTRYPOINT ARCHITECTURE
+  =============================================================================
+  Role: HTML5 Root Document and Core Telemetry Pre-Hydration Shell
+  Module Context: High-performance cognitive web application layer
+  System Integrations:
+    - /src/main.tsx (React App Mounting Point)
+    - /src/lib/boot-telemetry.ts (Client Sandbox Isolation & Diagnostic Engine)
+    - Inter & JetBrains Mono Font Infrastructure
+  Security Constraints: Zero-Leak Sandbox context, strict CSP compatibility
+  =============================================================================
+-->
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark dark:bg-slate-950 text-slate-100 antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
-    <meta name="description" content="An application built with Google AI Studio." />
-    <meta property="og:title" content="My Google AI Studio App" />
-    <meta property="og:description" content="An application built with Google AI Studio." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    
+    <!-- Primary Metadata -->
+    <title>Tessera AI Agent OS | Multi-Provider Cognitive Kernel Dashboard</title>
+    <meta name="description" content="Enterprise-grade AI Agent OS featuring multi-provider LLM fallback routing, dynamic consensus weighting, zero-leak sandboxing, and real-time diagnostic telemetry." />
+    <meta name="keywords" content="AI Agent OS, Tessera, Cognitive Kernel, Dynamic Consensus, Multi-LLM, Zero-Leak Sandbox, AI Governance" />
+    <meta name="author" content="Tessera Core Architecture Group" />
+    <meta name="theme-color" content="#020617" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Open Graph / Facebook / LinkedIn -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Tessera AI Agent OS" />
+    <meta property="og:title" content="Tessera AI Agent OS | Multi-Provider Cognitive Kernel" />
+    <meta property="og:description" content="High-performance autonomous agent orchestration layer with flat-file persistence and zero-leak runtime sandbox." />
+    <meta property="og:image" content="/og-image.png" />
+
+    <!-- Twitter Card Metadata -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tessera AI Agent OS | Cognitive Kernel Dashboard" />
+    <meta name="twitter:description" content="Next-generation autonomous AI multi-agent orchestrator with dynamic consensus weighting and failover." />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <!-- Fonts & Preconnect Domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Favicon & PWA Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Prehydration Inline Theme Script -->
+    <script>
+      (function () {
+        try {
+          var dark = localStorage.getItem('tessera_theme') !== 'light';
+          if (dark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
-  <body>
-    <div id="root"></div>
+  <body class="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden">
+    <!-- Root Mounting Context -->
+    <div id="root">
+      <!-- Initial Hydration Fallback Shell -->
+      <div id="tessera-preloader" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950 text-slate-200 transition-opacity duration-300">
+        <div class="relative flex items-center justify-center mb-6">
+          <div class="w-16 h-16 rounded-full border-2 border-cyan-500/20 border-t-cyan-400 animate-spin"></div>
+          <div class="absolute inset-0 flex items-center justify-center text-cyan-400 font-mono text-xs font-bold tracking-widest uppercase">
+            OS
+          </div>
+        </div>
+        <h1 class="text-xl font-bold tracking-wider text-slate-100 font-mono uppercase">Tessera Agent OS</h1>
+        <p class="text-xs text-slate-400 mt-2 font-mono animate-pulse">Initializing Cognitive Kernel & Zero-Leak Sandbox...</p>
+      </div>
+    </div>
+
+    <!-- Telemetry Pre-boot Diagnostic Harness -->
+    <script type="module" src="/src/lib/boot-telemetry.ts"></script>
+    
+    <!-- React Primary Module Entrypoint -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
