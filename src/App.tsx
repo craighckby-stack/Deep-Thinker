@@ -1,3 +1,10 @@
+/**
+ * DARLEK CANN ARCHITECTURAL HEADER
+ * File: src/App.tsx
+ * Role: Core system component participating in autonomous cognitive evolution cycles.
+ * Architecture: Type-safe modular unit with resilient state interfaces.
+ */
+
 import { useState, useRef, useEffect } from 'react';
 import Markdown from 'react-markdown';
 import { Send, Loader2, Brain, Sparkles, Copy, Check, Trash2, Cpu, Zap, Sliders, ShieldAlert, Code2, AlertOctagon } from 'lucide-react';
