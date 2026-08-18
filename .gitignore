@@ -1,8 +1,59 @@
+# PURPOSE: Define version control exclusion rules for the AI Agent OS / Tessera platform repository.
+# STATUS: SYNTHESIZED
+# LINEAGE: Expanded from base stub to cover enterprise build artifacts, secret protection, logs, and sandbox persistence.
+
+# Dependencies
 node_modules/
+.npm/
+.yarn/
+.pnpm-store/
+
+# Build & Output Artifacts
 build/
 dist/
+out/
+*.tsbuildinfo
+
+# Testing & Coverage
 coverage/
-.DS_Store
-*.log
+.nyc_output/
+*.lcov
+
+# Environment Files & Secrets (Zero-Leak Policy)
 .env*
 !.env.example
+*.pem
+*.key
+*.crt
+*.pfx
+
+# Logs & Runtime Diagnostics
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# System & OS Files
+.DS_Store
+.DS_Store?
+ehthumbs.db
+Thumbs.db
+
+# IDEs & Code Editors
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.swp
+*.swo
+
+# Local Sandbox & Memory Persistence Caches
+.sandbox/
+.memory/
+.telemetry/
+tmp/
+temp/
