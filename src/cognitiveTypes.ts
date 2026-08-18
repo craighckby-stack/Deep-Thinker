@@ -1,3 +1,10 @@
+/**
+ * DARLEK CANN ARCHITECTURAL HEADER
+ * File: src/cognitiveTypes.ts
+ * Role: Core system component participating in autonomous cognitive evolution cycles.
+ * Architecture: Type-safe modular unit with resilient state interfaces.
+ */
+
 export enum EpistemicStatus {
   EMPIRICALLY_MEASURED = "MEASURED",
   INFERRED_STRUCTURAL = "INFERRED_STRUCTURAL",
