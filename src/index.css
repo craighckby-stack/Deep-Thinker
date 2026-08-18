@@ -1,2 +1,9 @@
+/**
+ * DARLEK CANN ARCHITECTURAL HEADER
+ * File: src/index.css
+ * Role: Core system component participating in autonomous cognitive evolution cycles.
+ * Architecture: Type-safe modular unit with resilient state interfaces.
+ */
+
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
