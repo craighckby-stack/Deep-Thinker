@@ -185,8 +185,8 @@ You MUST respond with a valid JSON object matching this exact schema:
     });
   }
 
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on http://0.0.0.0:${PORT}`);
+  app.listen(PORT, "<IP_ADDRESS_REDACTED>", () => {
+    console.log(`Server running on http://<IP_ADDRESS_REDACTED>:${PORT}`);
   });
 }
 
