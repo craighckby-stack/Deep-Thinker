@@ -1,47 +1,132 @@
-# PURPOSE: Define version control exclusion rules for the AI Agent OS / Tessera platform repository.
-# STATUS: SYNTHESIZED
-# LINEAGE: Expanded from base stub to cover enterprise build artifacts, secret protection, logs, and sandbox persistence.
+# ==============================================================================
+# ARCHITECTURAL HEADER: TESSERA / AI AGENT OS GITIGNORE CONTROL
+# System: Tessera Enterprise & Local Agent Kernel System
+# Role: Comprehensive Version Control Exclusion & Zero-Leak Security Enforcement
+# Description: Defines repository exclusion rules across multi-language runtimes 
+#              (TypeScript, Python, C++, Rust, Go), local flat-file memory stores,
+#              zero-leak sandbox isolation environments, and sensitive key stores.
+# Integration: Connected with src/lib/git-ignore-diagnostics.ts for kernel-level
+#              integrity validation and pre-commit diagnostic audits.
+# ==============================================================================
 
-# Dependencies
+# ------------------------------------------------------------------------------
+# 1. Package Managers & Runtime Dependencies
+# ------------------------------------------------------------------------------
 node_modules/
 .npm/
 .yarn/
 .pnpm-store/
-
-# Build & Output Artifacts
-build/
-dist/
-out/
-*.tsbuildinfo
-
-# Testing & Coverage
-coverage/
-.nyc_output/
-*.lcov
-
-# Environment Files & Secrets (Zero-Leak Policy)
-.env*
-!.env.example
-*.pem
-*.key
-*.crt
-*.pfx
-
-# Logs & Runtime Diagnostics
-*.log
-logs/
+.node_repl_history
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# System & OS Files
+# ------------------------------------------------------------------------------
+# 2. Python Runtimes, Virtual Environments & Caches
+# ------------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+var/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ------------------------------------------------------------------------------
+# 3. Enterprise Build, Compilers & Output Artifacts
+# ------------------------------------------------------------------------------
+build/
+dist/
+out/
+target/
+bin/
+obj/
+*.tsbuildinfo
+.next/
+.turbo/
+.vercel/
+.nuxt/
+.output/
+
+# ------------------------------------------------------------------------------
+# 4. Zero-Leak Security, Secrets & Key Storage
+# ------------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+!.env.template
+*.pem
+*.key
+*.crt
+*.pfx
+*.cer
+*.p12
+*.kdbx
+id_rsa
+id_ed25519
+*.secret
+.credentials.json
+secrets.json
+
+# ------------------------------------------------------------------------------
+# 5. Logs, Diagnostics & Telemetry Streams
+# ------------------------------------------------------------------------------
+*.log
+logs/
+.telemetry/
+*.telemetry.json
+*.trace
+
+# ------------------------------------------------------------------------------
+# 6. Local Sandbox, Flat-File Memory Stores & Vector Caches
+# ------------------------------------------------------------------------------
+.sandbox/
+.memory/
+memory/local_store/
+tmp/
+temp/
+.cache/
+checkpoints/
+*.onnx.cache
+.vector_store/
+
+# ------------------------------------------------------------------------------
+# 7. Testing, Benchmarks & End-to-End Test Artifacts
+# ------------------------------------------------------------------------------
+coverage/
+.nyc_output/
+*.lcov
+.vitest/
+.playwright/
+test-results/
+playwright-report/
+blob-report/
+
+# ------------------------------------------------------------------------------
+# 8. IDEs, Editors & OS System Files
+# ------------------------------------------------------------------------------
 .DS_Store
 .DS_Store?
 ehthumbs.db
 Thumbs.db
-
-# IDEs & Code Editors
+.bash_history
+.zsh_history
 .idea/
 .vscode/*
 !.vscode/settings.json
@@ -50,10 +135,5 @@ Thumbs.db
 !.vscode/extensions.json
 *.swp
 *.swo
-
-# Local Sandbox & Memory Persistence Caches
-.sandbox/
-.memory/
-.telemetry/
-tmp/
-temp/
+*.sublime-workspace
+*.sublime-project
